@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <title>Hjemmelagde Lysstaker</title>
+  <!-- Inkluder Font Awesome for delingsknapp-ikoner -->
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hjemmelagde Lysstaker</h1>
+  </header>
+
+  <main>
+    <section class="product-grid">
+      <!-- Produkt 1 -->
+      <article class="product-card">
+        <div class="gallery-container">
+          <img src="https://placehold.co/600x400" class="main-image" alt="Hovedbilde" onclick="zoomImage(this)">
+          <div class="thumbnails">
+            <img src="https://placehold.co/600x400" class="gallery-thumbnail" onclick="changeMainImage(this)" data-full="main0.webp">
+            <img src="https://placehold.co/600x400" class="gallery-thumbnail" onclick="changeMainImage(this)" data-full="main1.webp">
+            <img src="https://placehold.co/600x400" class="gallery-thumbnail" onclick="changeMainImage(this)" data-full="main2.webp">
+          </div>
+        </div>
+        <h2>Hjemmelagde Lysstaker</h2>
+        <button class="buynow" onclick="showPaymentInstructions()">Kjøp Nå</button>
+      </article>
+      <!-- Flere produkter kan gjentas her -->
+    </section>
+
+    <section id="payment-instructions" class="hidden">
+      <h3>Betaling via Vipps</h3>
+      <ol class="instruction-list">
+        <li>Send SMS til <strong>+47 412 95 289</strong> for lagerstatus</li>
+        <li>Betal til Vippsnummer: <strong>122396</strong></li>
+        <li>Merk betalingen med <strong>ALF 09</strong></li>
+      </ol>
+      <button onclick="confirmPayment()">Jeg har betalt</button>
+    </section>
+  </main>
+
+  <!-- Flytende delingsknapp -->
+  <div class="share-button">
+    <input type="checkbox" id="share-toggle">
+    <label for="share-toggle" class="share-icon">
+      <i class="fas fa-share-alt"></i>
+    </label>
+    <div class="share-links">
+      <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Om Oss</h4>
+        <p>Vi lager håndlagde Lysstaker med omtanke for kvalitet og bærekraft.</p>
+      </div>
+      <!--<div class="footer-section">
+        <h4>Lenker</h4>
+        <ul>
+          <li><a href="#">Hjem</a></li>
+          <li><a href="#">Produkter</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Om Oss</a></li>
+        </ul>
+      </div>-->
+      <!--<div class="footer-section">
+        <h4>Følg oss</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </div> -->
+      <!--<div class="footer-section">
+        <h4>Nyhetsbrev</h4>
+        <p>Abonner for oppdateringer</p>
+        <form>
+          <input type="email" placeholder="Din e-post" style="padding: 0.5rem; width: 80%; border: none; border-radius: 4px;">
+          <button type="submit" style="padding: 0.5rem 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 4px; margin-top: 0.5rem; cursor: pointer;">Abonner</button>
+        </form>
+      </div>-->
+    </div>
+    <div class="footer-bottom">
+     <!-- &copy; 2025 Aune Thorsen. Alle rettigheter reservert.-->
+    </div>
+  </footer>
+
+  <script>
+    // Bildegalleri-logikk
+    function changeMainImage(thumb) {
+      const mainContainer = thumb.closest('.gallery-container');
+      const mainImage = mainContainer.querySelector('.main-image');
+      mainImage.src = thumb.dataset.full;
+      mainImage.classList.add('confirm-animation');
+      setTimeout(() => mainImage.classList.remove('confirm-animation'), 500);
+    }
+    function zoomImage(img) {
+      img.classList.toggle('zoomed');
+      img.style.transform = img.classList.contains('zoomed') 
+        ? 'scale(2) translateY(-20%)' 
+        : 'scale(1)';
+    }
+    // Betalingsflyt
+    function showPaymentInstructions() {
+      document.getElementById('payment-instructions').classList.remove('hidden');
+      document.body.scrollIntoView({ behavior: 'smooth' });
+    }
+    function confirmPayment() {
+      alert('Takk for din bestilling! Vi kontakter deg for leveringsdetaljer.');
+      document.getElementById('payment-instructions').classList.add('hidden');
+    }
+    // Utvid-produktkort (om man klikker utenom knappen)
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('button')) {
+          card.classList.toggle('expanded');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
